@@ -1,0 +1,608 @@
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+
+:root {
+  --general-background-color: rgb(20, 20, 20);
+  /* --general-background-color: black; */
+  --border-corner-size: 20px;
+  --border-color: rgba(255, 255, 255, 0.105);
+  --border-corner-color: rgba(255, 255, 255, 0.727);
+  /* --blue-rgb: 33 150 243;
+  --primary-rgb: var(--blue-rgb); */
+  --screen-overlay-color: rgba(33, 150, 243, 0.15);
+  /* --screen-overlay-color: rgba(220, 232, 241, 0.1); */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+#app {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--general-background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100%25' width='100%25'%3E%3Cdefs%3E%3Cpattern id='doodad' width='62' height='62' viewBox='0 0 40 40' patternUnits='userSpaceOnUse' patternTransform='rotate(135)'%3E%3Crect width='100%25' height='100%25' fill='rgba(0, 0, 0,1)'/%3E%3Ccircle cx='20' cy='20' r='1' fill='rgba(45, 55, 72,1)'/%3E%3Ccircle cx='0' cy='40' r='1' fill='rgba(45, 55, 72,1)'/%3E%3Ccircle cx='40' cy='0' r='1' fill='rgba(45, 55, 72,1)'/%3E%3Ccircle cx='0' cy='0' r='1' fill='rgba(45, 55, 72,1)'/%3E%3Ccircle cx='40' cy='40' r='1' fill='rgba(45, 55, 72,1)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23doodad)' height='200%25' width='200%25'/%3E%3C/svg%3E "); */
+  position: relative;
+  /* z-index: 10; */
+}
+
+.background-video {
+  position: absolute;
+  left: 0;
+  top: 0;
+  object-fit: cover;
+  filter: sepia(50%) hue-rotate(180deg);
+  opacity: 0.3;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* SCREEN OVERLAY */
+
+.screen-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+@keyframes panOverlay {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 0% -100%;
+  }
+}
+
+.screen-panning {
+  background: linear-gradient(var(--screen-overlay-color),
+      var(--screen-overlay-color) 3px,
+      transparent 3px,
+      transparent 9px);
+  background-size: 100% 9px;
+  height: 100%;
+  width: 100%;
+  animation: panOverlay 22s infinite linear;
+  position: absolute;
+  z-index: 2;
+  left: 0px;
+  top: 0px;
+}
+
+/* NUMBERS DATA */
+
+.numbers-data-display{
+  position: absolute;
+  bottom: 100px;
+  right: 100px;
+  width: 200px;
+  height: 200px;
+  font-family: monospace;
+  color: rgba(255,255,255, 50%);
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+
+/* MOUSE POINTER  */
+
+@keyframes pointerInit {
+  from {
+    transform: rotate(45deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+}
+
+.pointer {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  animation: pointerInit 300ms ease;
+}
+
+@keyframes pointerHover {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(45deg);
+  }
+}
+
+.pointer-hover {
+  animation: pointerHover 300ms ease;
+  transform: rotate(45deg);
+}
+
+/* ------------------------ Corners ------------------------- */
+
+.pointer-corner-top-left,
+.pointer-corner-top-right,
+.pointer-corner-bottom-left,
+.pointer-corner-bottom-right {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+}
+
+/* corners init */
+@keyframes pointerCornerTopLeftInit {
+  from {
+    top: 10px;
+    left: 10px;
+  }
+
+  to {
+    top: 0;
+    left: 0;
+  }
+}
+
+.pointer-corner-top-left {
+  top: 0;
+  left: 0;
+  border-top: 1px solid white;
+  border-left: 1px solid white;
+  animation: pointerCornerTopLeftInit 300ms ease;
+}
+
+@keyframes pointerCornerTopRightInit {
+  from {
+    top: 10px;
+    right: 10px;
+  }
+
+  to {
+    top: 0;
+    right: 0;
+  }
+}
+
+.pointer-corner-top-right {
+  top: 0;
+  right: 0;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+  animation: pointerCornerTopRightInit 300ms ease;
+}
+
+@keyframes pointerCornerBottomLeftInit {
+  from {
+    bottom: 10px;
+    left: 10px;
+  }
+
+  to {
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.pointer-corner-bottom-left {
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  animation: pointerCornerBottomLeftInit 300ms ease;
+}
+
+@keyframes pointerCornerBottomRightInit {
+  from {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  to {
+    bottom: 0;
+    right: 0;
+  }
+}
+
+.pointer-corner-bottom-right {
+  bottom: 0;
+  right: 0;
+  border-bottom: 1px solid white;
+  border-right: 1px solid white;
+  animation: pointerCornerBottomRightInit 300ms ease;
+}
+
+/* corners end */
+@keyframes pointerCornerTopLeft {
+  from {
+    top: 0;
+    left: 0;
+  }
+
+  to {
+    top: 10px;
+    left: 10px;
+  }
+}
+
+.pointer-corner-top-left-hover {
+  animation: pointerCornerTopLeft 300ms ease;
+  top: 10px;
+  left: 10px;
+}
+
+@keyframes pointerCornerTopRight {
+  from {
+    top: 0;
+    right: 0;
+  }
+
+  to {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+.pointer-corner-top-right-hover {
+  animation: pointerCornerTopRight 300ms ease;
+  top: 10px;
+  right: 10px;
+}
+
+@keyframes pointerCornerBottomRight {
+  from {
+    bottom: 0;
+    right: 0;
+  }
+
+  to {
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+.pointer-corner-bottom-right-hover {
+  animation: pointerCornerBottomRight 300ms ease;
+  bottom: 10px;
+  right: 10px;
+}
+
+@keyframes pointerCornerBottomLeft {
+  from {
+    bottom: 0;
+    left: 0;
+  }
+
+  to {
+    bottom: 10px;
+    left: 10px;
+  }
+}
+
+.pointer-corner-bottom-left-hover {
+  animation: pointerCornerBottomLeft 300ms ease;
+  bottom: 10px;
+  left: 10px;
+}
+
+
+/* -------------------- DOTS ------------------------ */
+.pointer-dot-top-left,
+.pointer-dot-top-right,
+.pointer-dot-bottom-left,
+.pointer-dot-bottom-right {
+  height: 5px;
+  width: 5px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+}
+
+/* dots init */
+@keyframes pointerDotTopLeftInit {
+  from {
+    top: 5px;
+    left: 5px;
+  }
+
+  to {
+    top: 15px;
+    left: 15px;
+  }
+}
+
+.pointer-dot-top-left {
+  animation: pointerDotTopLeftInit 300ms ease;
+  top: 15px;
+  left: 15px;
+}
+
+@keyframes pointerDotTopRightInit {
+  from {
+    top: 5px;
+    right: 5px;
+  }
+
+  to {
+    top: 15px;
+    right: 15px;
+  }
+}
+
+.pointer-dot-top-right {
+  animation: pointerDotTopRightInit 300ms ease;
+  top: 15px;
+  right: 15px;
+}
+
+@keyframes pointerDotBottomRightInit {
+  from {
+    bottom: 5px;
+    right: 5px;
+  }
+
+  to {
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+.pointer-dot-bottom-right {
+  animation: pointerDotBottomRightInit 300ms ease;
+  bottom: 15px;
+  right: 15px;
+}
+
+@keyframes pointerDotBottomleftInit {
+  from {
+    bottom: 5px;
+    left: 5px;
+  }
+
+  to {
+    bottom: 15px;
+    left: 15px;
+  }
+}
+
+.pointer-dot-bottom-left {
+  animation: pointerDotBottomleftInit 300ms ease;
+  bottom: 15px;
+  left: 15px;
+}
+
+/* dots end */
+@keyframes pointerDotTopLeft {
+  from {
+    top: 15px;
+    left: 15px;
+  }
+
+  to {
+    top: 0;
+    left: 0;
+  }
+}
+
+.pointer-dot-top-left-hover {
+  animation: pointerDotTopLeft 300ms ease;
+  top: 0;
+  left: 0;
+}
+
+@keyframes pointerDotTopRight {
+  from {
+    top: 15px;
+    right: 15px;
+  }
+
+  to {
+    top: 0;
+    right: 0;
+  }
+}
+
+.pointer-dot-top-right-hover {
+  animation: pointerDotTopRight 300ms ease;
+  top: 0;
+  right: 0;
+}
+
+@keyframes pointerDotBottomRight {
+  from {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  to {
+    bottom: 0;
+    right: 0;
+  }
+}
+
+.pointer-dot-bottom-right-hover {
+  animation: pointerDotBottomRight 300ms ease;
+  bottom: 0;
+  right: 0;
+}
+
+@keyframes pointerDotBottomLeft {
+  from {
+    bottom: 15px;
+    left: 15px;
+  }
+
+  to {
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.pointer-dot-bottom-left-hover {
+  animation: pointerDotBottomLeft 300ms ease;
+  bottom: 0;
+  left: 0;
+}
+
+
+/* EXTERNAL BORDER */
+
+.border {
+  width: 97%;
+  height: 95vh;
+  border: 1px solid var(--border-color);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: monospace;
+}
+
+
+.border-top-left,
+.border-top-right,
+.border-bottom-left,
+.border-bottom-right {
+  position: absolute;
+  width: var(--border-corner-size);
+  height: var(--border-corner-size);
+}
+
+.border-top-left {
+  left: 0;
+  top: 0;
+  border-top: 2px solid var(--border-corner-color);
+  border-left: 2px solid var(--border-corner-color);
+}
+
+.border-top-right {
+  right: 0;
+  top: 0;
+  border-top: 2px solid var(--border-corner-color);
+  border-right: 2px solid var(--border-corner-color);
+}
+
+.border-bottom-left {
+  left: 0;
+  bottom: 0;
+  border-bottom: 2px solid var(--border-corner-color);
+  border-left: 2px solid var(--border-corner-color);
+}
+
+.border-bottom-right {
+  right: 0;
+  bottom: 0;
+  border-bottom: 2px solid var(--border-corner-color);
+  border-right: 2px solid var(--border-corner-color);
+}
+
+
+
+
+
+
+
+
+/* TITLE */
+
+.inner-border {
+  /* border: 1px solid white; */
+  padding: 4rem;
+  position: relative;
+  z-index: 20;
+}
+
+.hide {
+  display: none
+}
+
+.inner-border-top-left,
+.inner-border-top-right,
+.inner-border-bottom-left,
+.inner-border-bottom-right {
+  position: absolute;
+  width: var(--border-corner-size);
+  height: var(--border-corner-size);
+}
+
+.inner-border-top-left {
+  left: 0;
+  top: 0;
+  border-top: 2px solid var(--border-corner-color);
+  border-left: 2px solid var(--border-corner-color);
+}
+
+.inner-border-top-right {
+  right: 0;
+  top: 0;
+  border-top: 2px solid var(--border-corner-color);
+  border-right: 2px solid var(--border-corner-color);
+}
+
+.inner-border-bottom-left {
+  left: 0;
+  bottom: 0;
+  border-bottom: 2px solid var(--border-corner-color);
+  border-left: 2px solid var(--border-corner-color);
+}
+
+.inner-border-bottom-right {
+  right: 0;
+  bottom: 0;
+  border-bottom: 2px solid var(--border-corner-color);
+  border-right: 2px solid var(--border-corner-color);
+}
+
+.title {
+  font-family: 'Fugaz One', cursive;
+  font-size: 5rem;
+  text-shadow:
+    0 0 7px #fff;
+}
+
+@keyframes renderFrame {
+  0% {
+    width: 100px;
+    height: 100px;
+  }
+
+  50% {
+    width: 97%;
+    height: 100px;
+  }
+
+  100% {
+    width: 97%;
+    height: 95vh;
+  }
+}
+
+@keyframes renderTitle {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.render-frame-animation {
+  animation: renderFrame 2s ease-in-out;
+}
+
+.render-title-animation {
+  animation: renderTitle 2s ease-in-out;
+}

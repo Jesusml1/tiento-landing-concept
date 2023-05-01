@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+</head>
+
+<body>
+  <div id="app">
+
+    <video autoplay loop muted plays-inline class="background-video">
+      <source src="./pexels-kelly-2657257-1920x1080-24fps-compress.mp4">
+    </video>
+
+    <div class="screen-overlay">
+      <div class="screen-panning"></div>
+    </div>
+
+    <div class=numbers-data-display>
+      <div id="ox-label"></div>
+      <div id="oz-label"></div>
+      <div id="fp1-label"></div>
+      <div id="fp2-label"></div>
+    </div>
+
+    <div class="border render-frame-animation">
+      <div class="border-top-left"></div>
+      <div class="border-top-right"></div>
+      <div class="border-bottom-right"></div>
+      <div class="border-bottom-left"></div>
+      <div class="inner-border hide">
+        <div class="inner-border-top-left"></div>
+        <div class="inner-border-top-right"></div>
+        <div class="inner-border-bottom-right"></div>
+        <div class="inner-border-bottom-left"></div>
+        <!-- <div class="title">TIENTO</div> -->
+        <img class="title" src="/tiento-logo.svg" />
+      </div>
+    </div>
+  </div>
+  <div class="pointer">
+    <div class="pointer-corners">
+      <div class="pointer-corner-top-left"> </div>
+      <div class="pointer-corner-top-right"> </div>
+      <div class="pointer-corner-bottom-right"> </div>
+      <div class="pointer-corner-bottom-left"> </div>
+    </div>
+    <div class="pointer-dots">
+      <div class="pointer-dot-top-left"></div>
+      <div class="pointer-dot-top-right"></div>
+      <div class="pointer-dot-bottom-right"></div>
+      <div class="pointer-dot-bottom-left"></div>
+    </div>
+
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
